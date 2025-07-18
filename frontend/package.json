@@ -18,5 +18,8 @@
   "license": "MIT",
   "devDependencies": {
     "firebase-tools": "^13.11.0"
+  },
+  "dependencies": {
+    "firebase": "^12.0.0"
   }
 }
