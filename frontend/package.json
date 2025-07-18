@@ -1,0 +1,22 @@
+{
+  "name": "ludo-frontend",
+  "version": "1.0.0",
+  "description": "Ludo Game Frontend (HTML/CSS/React via CDN)",
+  "main": "public/index.html",
+  "scripts": {
+    "start": "firebase serve --only hosting",
+    "deploy": "firebase deploy --only hosting"
+  },
+  "keywords": [
+    "ludo",
+    "game",
+    "react",
+    "socket.io",
+    "frontend"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "firebase-tools": "^13.11.0"
+  }
+}
