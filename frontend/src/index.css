@@ -1,0 +1,414 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS Variables */
+:root {
+  --ludo-red: #DC2626;
+  --ludo-blue: #2563EB;
+  --ludo-green: #16A34A;
+  --ludo-yellow: #CA8A04;
+  --ludo-safe: #F59E0B;
+  --ludo-board: #F3F4F6;
+  --ludo-border: #374151;
+}
+
+/* Base Styles */
+@layer base {
+  * {
+    @apply border-gray-200;
+  }
+  
+  body {
+    @apply bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Disable text selection on game elements */
+  .game-element {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Custom focus styles */
+  .focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2;
+  }
+  
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* Component Styles */
+@layer components {
+  /* Button Variants */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg font-medium transition-smooth focus-visible disabled:opacity-50 disabled:pointer-events-none;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary/90 shadow-lg hover:shadow-xl;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-gray-900 border border-gray-300 hover:bg-gray-50 shadow-sm hover:shadow-md;
+  }
+  
+  .btn-success {
+    @apply bg-success text-white hover:bg-success/90 shadow-lg hover:shadow-xl;
+  }
+  
+  .btn-danger {
+    @apply bg-error text-white hover:bg-error/90 shadow-lg hover:shadow-xl;
+  }
+  
+  .btn-ghost {
+    @apply text-gray-700 hover:bg-gray-100 hover:text-gray-900;
+  }
+  
+  /* Button Sizes */
+  .btn-sm {
+    @apply px-3 py-1.5 text-sm;
+  }
+  
+  .btn-md {
+    @apply px-4 py-2 text-base;
+  }
+  
+  .btn-lg {
+    @apply px-6 py-3 text-lg;
+  }
+  
+  .btn-xl {
+    @apply px-8 py-4 text-xl;
+  }
+  
+  /* Card Styles */
+  .card {
+    @apply bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden;
+  }
+  
+  .card-header {
+    @apply px-6 py-4 border-b border-gray-200 bg-gray-50;
+  }
+  
+  .card-body {
+    @apply px-6 py-4;
+  }
+  
+  .card-footer {
+    @apply px-6 py-4 border-t border-gray-200 bg-gray-50;
+  }
+  
+  /* Input Styles */
+  .input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-smooth;
+  }
+  
+  .input-error {
+    @apply border-error focus:ring-error;
+  }
+  
+  /* Game Board Styles */
+  .game-board {
+    @apply relative bg-ludo-board border-4 border-ludo-border rounded-2xl shadow-board game-element;
+  }
+  
+  .board-tile {
+    @apply relative flex items-center justify-center transition-smooth cursor-pointer;
+  }
+  
+  .board-tile-safe {
+    @apply bg-ludo-safe;
+  }
+  
+  .board-tile-star {
+    @apply bg-ludo-safe relative;
+  }
+  
+  .board-tile-star::after {
+    content: '⭐';
+    @apply absolute inset-0 flex items-center justify-center text-white text-xs;
+  }
+  
+  /* Game Piece Styles */
+  .game-piece {
+    @apply w-6 h-6 rounded-full border-2 border-white shadow-piece transition-smooth cursor-pointer game-element;
+    @apply hover:scale-110 active:scale-95;
+  }
+  
+  .game-piece-red {
+    @apply bg-ludo-red;
+  }
+  
+  .game-piece-blue {
+    @apply bg-ludo-blue;
+  }
+  
+  .game-piece-green {
+    @apply bg-ludo-green;
+  }
+  
+  .game-piece-yellow {
+    @apply bg-ludo-yellow;
+  }
+  
+  .game-piece-selected {
+    @apply ring-4 ring-white ring-opacity-80 scale-110;
+  }
+  
+  .game-piece-valid-move {
+    @apply animate-pulse ring-2 ring-green-400;
+  }
+  
+  /* Dice Styles */
+  .dice {
+    @apply w-16 h-16 bg-white rounded-xl shadow-lg border-2 border-gray-300 flex items-center justify-center text-2xl font-bold cursor-pointer transition-smooth game-element;
+    @apply hover:shadow-xl hover:scale-105 active:scale-95;
+  }
+  
+  .dice-rolling {
+    @apply animate-dice-roll;
+  }
+  
+  /* Player Info Styles */
+  .player-info {
+    @apply flex items-center space-x-3 p-3 rounded-lg transition-smooth;
+  }
+  
+  .player-info-active {
+    @apply bg-primary/10 border-2 border-primary;
+  }
+  
+  .player-info-inactive {
+    @apply bg-gray-50 border border-gray-200;
+  }
+  
+  .player-avatar {
+    @apply w-10 h-10 rounded-full flex items-center justify-center text-white font-bold;
+  }
+  
+  /* Loading Styles */
+  .loading-spinner {
+    @apply animate-spin rounded-full border-4 border-gray-200 border-t-primary;
+  }
+  
+  .loading-dots {
+    @apply flex space-x-1;
+  }
+  
+  .loading-dot {
+    @apply w-2 h-2 bg-primary rounded-full animate-bounce;
+  }
+  
+  .loading-dot:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  
+  .loading-dot:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+  
+  /* Modal Styles */
+  .modal-overlay {
+    @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50;
+  }
+  
+  .modal-content {
+    @apply bg-white rounded-xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto;
+  }
+  
+  /* Toast Styles */
+  .toast-success {
+    @apply bg-success text-white;
+  }
+  
+  .toast-error {
+    @apply bg-error text-white;
+  }
+  
+  .toast-info {
+    @apply bg-info text-white;
+  }
+  
+  .toast-warning {
+    @apply bg-warning text-white;
+  }
+  
+  /* Responsive Game Board */
+  .game-board-container {
+    @apply w-full max-w-lg mx-auto aspect-square;
+  }
+  
+  @screen sm {
+    .game-board-container {
+      @apply max-w-xl;
+    }
+  }
+  
+  @screen md {
+    .game-board-container {
+      @apply max-w-2xl;
+    }
+  }
+  
+  /* Animation Classes */
+  .animate-slide-in-up {
+    animation: slideInUp 0.3s ease-out;
+  }
+  
+  .animate-slide-out-down {
+    animation: slideOutDown 0.3s ease-in;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  .animate-fade-out {
+    animation: fadeOut 0.3s ease-in;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out;
+  }
+  
+  .animate-scale-out {
+    animation: scaleOut 0.2s ease-in;
+  }
+}
+
+/* Utility Classes */
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .bg-gradient-game {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+  
+  .bg-gradient-board {
+    background: linear-gradient(45deg, #f3f4f6 0%, #e5e7eb 100%);
+  }
+  
+  /* Safe area padding for mobile devices */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .safe-area-left {
+    padding-left: env(safe-area-inset-left);
+  }
+  
+  .safe-area-right {
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Custom Animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scaleOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: more) {
+  .game-piece {
+    @apply border-4 border-black;
+  }
+  
+  .board-tile {
+    @apply border border-black;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
